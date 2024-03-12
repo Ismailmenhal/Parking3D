@@ -1,11 +1,12 @@
-package com.example.Parking.Service;
+package com.exemple.parking.service;
 
-import com.example.Parking.DTO.ParkingDTO;
-import com.example.Parking.Mapper.ParkingMapper;
-import com.example.Parking.Model.Parking;
-import com.example.Parking.Repository.ParkingRepository;
+import com.exemple.parking.dto.ParkingDTO;
+import com.exemple.parking.mapper.ParkingMapper;
+import com.exemple.parking.model.Parking;
+import com.exemple.parking.repository.ParkingRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,25 +14,30 @@ import java.util.List;
 @Log4j2
 public class ParkingService {
 
-    @Autowired
+
     private ParkingRepository parkingRepository ;
 
+    private    ParkingMapper mapper;
+    @Autowired
+    public ParkingService(ParkingRepository parkingRepository, ParkingMapper mapper) {
+        this.parkingRepository = parkingRepository;
+        this.mapper = mapper;
+    }
 
-    public     ParkingMapper mapper;
 
     public ParkingDTO saveParking(ParkingDTO parkingDTO){
-        Parking parking = mapper.MapperfromDto(parkingDTO);
+        Parking parking = mapper.mapperfromDto(parkingDTO);
         log.info("Mapping DTO to Entity " , parking);
 
         Parking savedParking = parkingRepository.save(parking);
         log.info("saved Parking"  , savedParking);
 
-        ParkingDTO savedParkingDTO =  mapper.MapperToDto(savedParking);
+        ParkingDTO savedParkingDTO =  mapper.mappertodto(savedParking);
         log.info("mapped Entity To DTO "  , savedParkingDTO);
         return savedParkingDTO ;
     }
     public List<Parking> getAllParkings(){
-        log.info("Getting All PArkings" );
+        log.info("Getting All Parkings" );
         return parkingRepository.findAll();
     }
     public Parking getParkingById(Long id){
@@ -43,7 +49,7 @@ public class ParkingService {
         log.info(saved.getName());
         return saved;
     }
-    public void DeleteParking(Long id){
+    public void deleteParking(Long id){
         log.info("Delete Parking by Id"  , id);
         parkingRepository.deleteById(id);
     }

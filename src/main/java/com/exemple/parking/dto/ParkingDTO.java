@@ -1,19 +1,13 @@
-package com.example.Parking.DTO;
-
-
+package com.exemple.parking.dto;
 public class ParkingDTO {
-    public Integer id ;
-    public  String name ;
-
+    private Integer id ;
+    private   String name ;
     public ParkingDTO(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
-
     public ParkingDTO() {
-
     }
-
     public String getName() {
         return name;
     }

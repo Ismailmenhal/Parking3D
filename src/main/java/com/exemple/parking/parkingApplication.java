@@ -1,13 +1,13 @@
-package com.example.Parking;
+package com.exemple.parking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class 	ParkingApplication {
+public class parkingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParkingApplication.class, args);
+		SpringApplication.run(parkingApplication.class, args);
 	}
 
 }

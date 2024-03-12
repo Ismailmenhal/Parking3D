@@ -12,19 +12,30 @@ import java.util.List;
 @Service
 @Log4j2
 public class ParkingService {
+
     @Autowired
     private ParkingRepository parkingRepository ;
-    private ParkingMapper parkingMapper ;
+
+
+    public     ParkingMapper mapper;
 
     public ParkingDTO saveParking(ParkingDTO parkingDTO){
-        Parking parking = parkingMapper.fromDto(parkingDTO);
+        Parking parking = mapper.MapperfromDto(parkingDTO);
+        log.info("Mapping DTO to Entity " , parking);
+
         Parking savedParking = parkingRepository.save(parking);
-        return parkingMapper.toDto(savedParking);
+        log.info("saved Parking"  , savedParking);
+
+        ParkingDTO savedParkingDTO =  mapper.MapperToDto(savedParking);
+        log.info("mapped Entity To DTO "  , savedParkingDTO);
+        return savedParkingDTO ;
     }
     public List<Parking> getAllParkings(){
+        log.info("Getting All PArkings" );
         return parkingRepository.findAll();
     }
     public Parking getParkingById(Long id){
+        log.info("Getting Parkings By Id"  , id);
         return parkingRepository.findById(id).orElse(null);
     }
     public Parking updateParking(Parking parking){
@@ -33,6 +44,7 @@ public class ParkingService {
         return saved;
     }
     public void DeleteParking(Long id){
+        log.info("Delete Parking by Id"  , id);
         parkingRepository.deleteById(id);
     }
 }
